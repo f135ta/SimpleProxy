@@ -37,7 +37,7 @@ public class ConsoleLogInterceptor : MethodInterceptor
     }
 }
 ```
-3) In your application statup, configure Simple Proxy to know which interceptors and attributes you will be using.
+3) In your application startup, configure Simple Proxy to know which interceptors and attributes you will be using.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
