@@ -48,6 +48,21 @@ public void ConfigureServices(IServiceCollection services)
 }
 
 ```
+
+4) Add the Attribute to your method - the Interceptor that was configured for the attribute will be called when the method is called
+```csharp
+public class TestClass : ITestClass
+{
+    /// <summary>
+    /// Test Method with the <see cref="ConsoleLogAttribute"/> applied
+    /// </summary>
+    [ConsoleLog]
+    public void TestMethod()
+    {
+    }
+}
+```
+
 ### What is IInterceptionContext?
 
 The InterceptionContext is built during the Proxy process and contains all the information about the proxied object. This enables you to see during Debug, exactly what is being executed and what configuration is being used.
