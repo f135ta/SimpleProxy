@@ -4,13 +4,12 @@
 
 Simple Proxy is a simple extension library built to solve the problem of Aspect Orientated Programming in Net Core projects.
 
-### How do I get started?
-Download the code and build the project in Visual Studio. SimpleProxy.dll will be built. Reference this file in your Net Core project.
+### Installation Options
+- Download the code and build the project in Visual Studio. SimpleProxy.dll will be built. Reference this file in your Net Core project.
+- Its available as a nuget package: https://www.nuget.org/packages/SimpleProxy/1.0.0#
+- Install-Package SimpleProxy -Version 1.0.0
 
-or
-
-Its available as a nuget package: https://www.nuget.org/packages/SimpleProxy/1.0.0#
-
+### Getting Started
 The code also contains a SampleApp which shows the code running, and a simple example of how it is configured.
 
 Building your own interceptors is a simple process.
