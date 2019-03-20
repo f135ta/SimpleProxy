@@ -1,7 +1,9 @@
 ﻿namespace SampleApp
 {
-    using Attributes;
-    using Interfaces;
+    using System;
+    using SimpleProxy.Caching;
+    using SimpleProxy.Diagnostics;
+    using SimpleProxy.Logging;
 
     /// <summary>
     /// Sample Class used to demonstrate the SimpleProxy Interception
@@ -9,12 +11,21 @@
     public class TestClass : ITestClass
     {
         /// <summary>
-        /// Test Method with the <see cref="ConsoleLogAttribute"/> applied
+        /// Test Method
         /// </summary>
         [ConsoleLog]
-        public void TestMethod()
+        [Diagnostics]
+        [Cache]
+        public DateTime TestMethod()
         {
-
+            var dateTime = DateTime.Now;
+            Console.WriteLine($"Inside Method! {dateTime}");
+            return dateTime;
         }
+    }
+
+    public interface ITestClass
+    {
+        DateTime TestMethod();
     }
 }

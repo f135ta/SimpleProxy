@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/SampleApp/bin/Debug/netcoreapp2.2
+/SampleApp/obj
+/SimpleProxy/bin/Debug/netcoreapp2.1
+/SimpleProxy/obj
+/SimpleProxy.Caching/bin/Debug/netcoreapp2.2
+/SimpleProxy.Caching/obj
+/SimpleProxy.Diagnostics/bin/Debug/netcoreapp2.2
+/SimpleProxy.Diagnostics/obj
+/SimpleProxy.Logging/bin/Debug/netcoreapp2.2
+/SimpleProxy.Logging/obj

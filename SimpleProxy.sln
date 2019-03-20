@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy", "SimpleProxy\SimpleProxy.csproj", "{076C09AD-12A5-4CE0-BE41-B461606FED62}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp", "SampleApp\SampleApp.csproj", "{F1589C2B-CA8A-4B56-B964-C64C561ADB01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy.Caching", "SimpleProxy.Caching\SimpleProxy.Caching.csproj", "{3B583E8E-6FB9-40E6-A294-35A26F9A9430}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy.Diagnostics", "SimpleProxy.Diagnostics\SimpleProxy.Diagnostics.csproj", "{D513380A-89DF-4074-B6C9-EA146AE7D8B5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy.Logging", "SimpleProxy.Logging\SimpleProxy.Logging.csproj", "{65B0C87F-FA32-4EC3-8D67-15D1746924E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{F1589C2B-CA8A-4B56-B964-C64C561ADB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1589C2B-CA8A-4B56-B964-C64C561ADB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1589C2B-CA8A-4B56-B964-C64C561ADB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B583E8E-6FB9-40E6-A294-35A26F9A9430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B583E8E-6FB9-40E6-A294-35A26F9A9430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B583E8E-6FB9-40E6-A294-35A26F9A9430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B583E8E-6FB9-40E6-A294-35A26F9A9430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D513380A-89DF-4074-B6C9-EA146AE7D8B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D513380A-89DF-4074-B6C9-EA146AE7D8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D513380A-89DF-4074-B6C9-EA146AE7D8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D513380A-89DF-4074-B6C9-EA146AE7D8B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B0C87F-FA32-4EC3-8D67-15D1746924E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B0C87F-FA32-4EC3-8D67-15D1746924E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B0C87F-FA32-4EC3-8D67-15D1746924E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B0C87F-FA32-4EC3-8D67-15D1746924E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
