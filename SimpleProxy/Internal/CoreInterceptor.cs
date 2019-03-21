@@ -14,7 +14,7 @@
         /// <summary>
         /// Gets the <see cref="proxyConfiguration"/>
         /// </summary>
-        private readonly ProxyConfiguration proxyConfiguration;
+        private readonly SimpleProxyConfiguration proxyConfiguration;
 
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/>
@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="serviceProvider">Service Provider</param>
         /// <param name="proxyConfiguration">Proxy Configuration</param>
-        public CoreInterceptor(IServiceProvider serviceProvider, ProxyConfiguration proxyConfiguration)
+        public CoreInterceptor(IServiceProvider serviceProvider, SimpleProxyConfiguration proxyConfiguration)
         {
             this.serviceProvider = serviceProvider;
             this.proxyConfiguration = proxyConfiguration;

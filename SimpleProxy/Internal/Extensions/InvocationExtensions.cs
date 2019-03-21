@@ -23,7 +23,7 @@
         /// <param name="serviceProvider">Service Provider Instance</param>
         /// <param name="proxyConfiguration">Proxy Configuration</param>
         /// <returns><see cref="Dictionary{TKey,TValue}"/> of all configured interceptors for this method</returns>
-        internal static List<InvocationContext> GetInterceptorMetadataForMethod(IInvocation invocation, IServiceProvider serviceProvider, ProxyConfiguration proxyConfiguration)
+        internal static List<InvocationContext> GetInterceptorMetadataForMethod(IInvocation invocation, IServiceProvider serviceProvider, SimpleProxyConfiguration proxyConfiguration)
         {
             // Create the Interceptor List to store the configured interceptors
             var interceptorList = new List<InvocationContext>();

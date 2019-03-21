@@ -1,6 +1,5 @@
 ﻿namespace SimpleProxy.Logging
 {
-    using Extensions;
     using Interfaces;
     using Microsoft.Extensions.Logging;
     using SimpleProxy;

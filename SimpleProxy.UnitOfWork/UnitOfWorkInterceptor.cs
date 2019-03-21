@@ -37,9 +37,8 @@
         /// <inheritdoc />
         public void BeforeInvoke(InvocationContext invocationContext)
         {
-            this.unitOfWorkAttribute = invocationContext.GetAttributeFromMethod<UnitOfWorkAttribute>();
-
-            var dbContextType = this.unitOfWorkAttribute.DbContextType;
+            this.unitOfWorkAttribute = invocationContext.GetOwningAttribute() as UnitOfWorkAttribute;
+            var dbContextType = this.unitOfWorkAttribute?.DbContextType;
             var uowPropertyPosition = invocationContext.GetParameterPosition<IUnitOfWork>();
             var uow = invocationContext.GetParameterValue<IUnitOfWork>(uowPropertyPosition);
 

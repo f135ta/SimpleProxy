@@ -13,7 +13,7 @@
     /// Configuration Class for Proxy Generation
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public sealed class ProxyConfiguration 
+    public sealed class SimpleProxyConfiguration 
     {
         /// <summary>
         /// Gets or sets a collection of all configured interceptors
@@ -36,7 +36,7 @@
         /// <typeparam name="TAttribute">Attribute to trigger interception</typeparam>
         /// <typeparam name="TInterceptor">Interceptor to call when attribute is applied</typeparam>
         /// <returns></returns>
-        public ProxyConfiguration AddInterceptor<TAttribute, TInterceptor>() where TAttribute : MethodInterceptionAttribute where TInterceptor : IMethodInterceptor
+        public SimpleProxyConfiguration AddInterceptor<TAttribute, TInterceptor>() where TAttribute : MethodInterceptionAttribute where TInterceptor : IMethodInterceptor
         {
             // Adds an Interceptor Mapping for matching up attributes to interceptors
             this.ConfiguredInterceptors.Add(new InterceptorMapping<TAttribute, TInterceptor>());
@@ -48,8 +48,8 @@
         /// <summary>
         /// Prevents exceptions being thrown when interceptors are not configured correctly
         /// </summary>
-        /// <returns><see cref="ProxyConfiguration"/> so that configuration can be chained</returns>
-        public ProxyConfiguration IgnoreInvalidInterceptorConfigurations()
+        /// <returns><see cref="SimpleProxyConfiguration"/> so that configuration can be chained</returns>
+        public SimpleProxyConfiguration IgnoreInvalidInterceptorConfigurations()
         {
             // Invalid Interceptor Configurations are ignored and wont throw exceptions
             this.IgnoreInvalidInterceptors = true;
@@ -62,8 +62,8 @@
         /// Applies an ordering strategy to the interceptors
         /// </summary>
         /// <typeparam name="TStrategy">Strategy (Class) Type</typeparam>
-        /// <returns><see cref="ProxyConfiguration"/> so that configuration can be chained</returns>
-        public ProxyConfiguration WithOrderingStrategy<TStrategy>() where TStrategy : IOrderingStrategy
+        /// <returns><see cref="SimpleProxyConfiguration"/> so that configuration can be chained</returns>
+        public SimpleProxyConfiguration WithOrderingStrategy<TStrategy>() where TStrategy : IOrderingStrategy
         {
             // Creates a new instance of the Ordering Strategy and assigns it the configuration
             this.OrderingStrategy = Activator.CreateInstance<TStrategy>();

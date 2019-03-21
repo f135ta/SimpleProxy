@@ -18,7 +18,7 @@
         /// <param name="services">Services Collection</param>
         /// <param name="options">Proxy Configuration Options</param>
         /// <returns><see cref="IServiceCollection"/></returns>
-        public static IServiceCollection EnableSimpleProxy(this IServiceCollection services, Action<ProxyConfiguration> options)
+        public static IServiceCollection EnableSimpleProxy(this IServiceCollection services, Action<SimpleProxyConfiguration> options)
         {
             // Check Inputs for Null
             if (options == null)
@@ -104,9 +104,9 @@
         /// </summary>
         /// <param name="services"><see cref="IServiceCollection"/></param>
         /// <returns>Proxy Configuration</returns>
-        private static ProxyConfiguration GetProxyConfiguration(this IServiceCollection services)
+        private static SimpleProxyConfiguration GetProxyConfiguration(this IServiceCollection services)
         {
-            return services.BuildServiceProvider().GetRequiredService<IOptions<ProxyConfiguration>>().Value;
+            return services.BuildServiceProvider().GetRequiredService<IOptions<SimpleProxyConfiguration>>().Value;
         }
     }
 }

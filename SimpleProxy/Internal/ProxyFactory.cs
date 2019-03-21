@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets or sets the Proxy Configuration
         /// </summary>
-        private readonly ProxyConfiguration proxyConfiguration;
+        private readonly SimpleProxyConfiguration proxyConfiguration;
 
         /// <summary>
         /// Gets the CastleCore Proxy Generator
@@ -31,7 +31,7 @@
         /// <param name="serviceProvider">Services Collection</param>
         /// <param name="proxyGenerator">Proxy Generator Instance</param>
         /// <param name="config">Proxy Configuration</param>
-        public ProxyFactory(IServiceProvider serviceProvider, IProxyGenerator proxyGenerator, ProxyConfiguration config)
+        public ProxyFactory(IServiceProvider serviceProvider, IProxyGenerator proxyGenerator, SimpleProxyConfiguration config)
         {
             this.proxyConfiguration = config;
             this.proxyGenerator = proxyGenerator;
