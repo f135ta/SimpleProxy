@@ -21,9 +21,9 @@
         /// </summary>
         /// <param name="invocation">Current Invocation</param>
         /// <param name="serviceProvider">Service Provider Instance</param>
-        /// <param name="simpleProxyConfiguration">Proxy Configuration</param>
+        /// <param name="proxyConfiguration">Proxy Configuration</param>
         /// <returns><see cref="Dictionary{TKey,TValue}"/> of all configured interceptors for this method</returns>
-        internal static List<InvocationContext> GetInterceptorMetadataForMethod(IInvocation invocation, IServiceProvider serviceProvider, SimpleProxyConfiguration simpleProxyConfiguration)
+        internal static List<InvocationContext> GetInterceptorMetadataForMethod(IInvocation invocation, IServiceProvider serviceProvider, ProxyConfiguration proxyConfiguration)
         {
             // Create the Interceptor List to store the configured interceptors
             var interceptorList = new List<InvocationContext>();
@@ -39,10 +39,10 @@
             foreach (var methodAttribute in methodAttributes)
             {
                 // Get the Interceptor that is bound to the attribute
-                var interceptorType = simpleProxyConfiguration.ConfiguredInterceptors.FirstOrDefault(p => p.AttributeType == methodAttribute.GetType())?.InterceptorType;
+                var interceptorType = proxyConfiguration.ConfiguredInterceptors.FirstOrDefault(p => p.AttributeType == methodAttribute.GetType())?.InterceptorType;
                 if (interceptorType == null)
                 {
-                    if (simpleProxyConfiguration.IgnoreInvalidInterceptors)
+                    if (proxyConfiguration.IgnoreInvalidInterceptors)
                     {
                         continue;
                     }

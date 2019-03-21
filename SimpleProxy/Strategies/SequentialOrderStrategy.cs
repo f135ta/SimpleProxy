@@ -1,7 +1,7 @@
 ﻿namespace SimpleProxy.Strategies
 {
-    using System.Collections.Generic;
     using Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Sequential Ordering Strategy for Interceptors

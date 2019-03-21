@@ -12,9 +12,9 @@
     internal class CoreInterceptor : IInterceptor
     {
         /// <summary>
-        /// Gets the <see cref="SimpleProxyConfiguration"/>
+        /// Gets the <see cref="proxyConfiguration"/>
         /// </summary>
-        private readonly SimpleProxyConfiguration simpleProxyConfiguration;
+        private readonly ProxyConfiguration proxyConfiguration;
 
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/>
@@ -25,18 +25,18 @@
         /// Initialises a new instance of the <see cref="CoreInterceptor"/> class
         /// </summary>
         /// <param name="serviceProvider">Service Provider</param>
-        /// <param name="simpleProxyConfiguration">Proxy Configuration</param>
-        public CoreInterceptor(IServiceProvider serviceProvider, SimpleProxyConfiguration simpleProxyConfiguration)
+        /// <param name="proxyConfiguration">Proxy Configuration</param>
+        public CoreInterceptor(IServiceProvider serviceProvider, ProxyConfiguration proxyConfiguration)
         {
             this.serviceProvider = serviceProvider;
-            this.simpleProxyConfiguration = simpleProxyConfiguration;
+            this.proxyConfiguration = proxyConfiguration;
         }
 
         /// <inheritdoc />
         public void Intercept(IInvocation invocation)
         {
             // Map the configured interceptors to this type based on its attributes
-            var invocationMetadataCollection = InvocationExtensions.GetInterceptorMetadataForMethod(invocation, this.serviceProvider, this.simpleProxyConfiguration);
+            var invocationMetadataCollection = InvocationExtensions.GetInterceptorMetadataForMethod(invocation, this.serviceProvider, this.proxyConfiguration);
 
             // If there are no configured interceptors, leave now
             if (invocationMetadataCollection == null || !invocationMetadataCollection.Any())
@@ -46,7 +46,7 @@
             }
 
             // Get the Ordering Strategy for Interceptors
-            var orderingStrategy = this.simpleProxyConfiguration.OrderingStrategy;
+            var orderingStrategy = this.proxyConfiguration.OrderingStrategy;
 
             // Process the BEFORE Interceptions
             foreach (var invocationContext in orderingStrategy.OrderBeforeInterception(invocationMetadataCollection))

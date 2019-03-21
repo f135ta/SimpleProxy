@@ -13,7 +13,7 @@
     /// Configuration Class for Proxy Generation
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public sealed class SimpleProxyConfiguration
+    public sealed class ProxyConfiguration 
     {
         /// <summary>
         /// Gets or sets a collection of all configured interceptors
@@ -30,33 +30,45 @@
         /// </summary>
         internal bool IgnoreInvalidInterceptors = true;
 
-        /// <inheritdoc />
-        public SimpleProxyConfiguration AddInterceptor<TAttribute, TInterceptor>() where TAttribute : MethodInterceptionAttribute where TInterceptor : IMethodInterceptor
+        /// <summary>
+        /// Adds an interceptor to the configuration
+        /// </summary>
+        /// <typeparam name="TAttribute">Attribute to trigger interception</typeparam>
+        /// <typeparam name="TInterceptor">Interceptor to call when attribute is applied</typeparam>
+        /// <returns></returns>
+        public ProxyConfiguration AddInterceptor<TAttribute, TInterceptor>() where TAttribute : MethodInterceptionAttribute where TInterceptor : IMethodInterceptor
         {
             // Adds an Interceptor Mapping for matching up attributes to interceptors
             this.ConfiguredInterceptors.Add(new InterceptorMapping<TAttribute, TInterceptor>());
 
-            // Return the SimpleProxyConfiguration for chaining configuration
+            // Return the ProxyConfiguration for chaining configuration
             return this;
         }
 
-        /// <inheritdoc />
-        public SimpleProxyConfiguration IgnoreInvalidInterceptorConfigurations()
+        /// <summary>
+        /// Prevents exceptions being thrown when interceptors are not configured correctly
+        /// </summary>
+        /// <returns><see cref="ProxyConfiguration"/> so that configuration can be chained</returns>
+        public ProxyConfiguration IgnoreInvalidInterceptorConfigurations()
         {
             // Invalid Interceptor Configurations are ignored and wont throw exceptions
             this.IgnoreInvalidInterceptors = true;
 
-            // Return the SimpleProxyConfiguration for chaining configuration
+            // Return the ProxyConfiguration for chaining configuration
             return this;
         }
 
-        /// <inheritdoc />
-        public SimpleProxyConfiguration WithOrderingStrategy<TStrategy>() where TStrategy : IOrderingStrategy
+        /// <summary>
+        /// Applies an ordering strategy to the interceptors
+        /// </summary>
+        /// <typeparam name="TStrategy">Strategy (Class) Type</typeparam>
+        /// <returns><see cref="ProxyConfiguration"/> so that configuration can be chained</returns>
+        public ProxyConfiguration WithOrderingStrategy<TStrategy>() where TStrategy : IOrderingStrategy
         {
             // Creates a new instance of the Ordering Strategy and assigns it the configuration
             this.OrderingStrategy = Activator.CreateInstance<TStrategy>();
 
-            // Return the SimpleProxyConfiguration for chaining configuration
+            // Return the ProxyConfiguration for chaining configuration
             return this;
         }
     }

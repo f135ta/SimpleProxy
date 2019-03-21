@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets or sets the Proxy Configuration
         /// </summary>
-        private readonly SimpleProxyConfiguration simpleProxyConfiguration;
+        private readonly ProxyConfiguration proxyConfiguration;
 
         /// <summary>
         /// Gets the CastleCore Proxy Generator
@@ -31,9 +31,9 @@
         /// <param name="serviceProvider">Services Collection</param>
         /// <param name="proxyGenerator">Proxy Generator Instance</param>
         /// <param name="config">Proxy Configuration</param>
-        public ProxyFactory(IServiceProvider serviceProvider, IProxyGenerator proxyGenerator, SimpleProxyConfiguration config)
+        public ProxyFactory(IServiceProvider serviceProvider, IProxyGenerator proxyGenerator, ProxyConfiguration config)
         {
-            this.simpleProxyConfiguration = config;
+            this.proxyConfiguration = config;
             this.proxyGenerator = proxyGenerator;
             this.serviceProvider = serviceProvider;
         }
@@ -46,7 +46,7 @@
         public T CreateProxy(T originalObject)
         {
             // Proxy the Original Object
-            var masterInterceptor = new CoreInterceptor(this.serviceProvider, this.simpleProxyConfiguration);
+            var masterInterceptor = new CoreInterceptor(this.serviceProvider, this.proxyConfiguration);
             var proxy = this.proxyGenerator.CreateInterfaceProxyWithTarget(typeof(T), originalObject, masterInterceptor);
 
             // Make sure the Proxy was created correctly

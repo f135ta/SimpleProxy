@@ -3,6 +3,9 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using Attributes;
     using Castle.DynamicProxy;
     using Interfaces;
 
@@ -11,6 +14,8 @@
     /// </summary>
     public class InvocationContext : IHideBaseTypes
     {
+        #region Internal Properties
+
         /// <summary>
         /// Gets or sets the Invocation Context
         /// </summary>
@@ -19,7 +24,7 @@
         /// <summary>
         /// Gets or sets the Attribute that triggered the interceptor
         /// </summary>
-        internal IInterceptorAttribute Attribute { get; set; }
+        internal MethodInterceptionAttribute Attribute { get; set; }
 
         /// <summary>
         /// Gets or sets the Interceptor that is triggered for this method
@@ -46,12 +51,32 @@
         /// </summary>
         internal bool InvocationIsBypassed { get; set; }
 
+        #endregion
+
         /// <summary>
         /// Inititalises a new instance of the <see cref="InvocationContext"/>
         /// </summary>
         public InvocationContext()
         {
             this.TempData = new ConcurrentDictionary<string, object>();
+        }
+
+        /// <summary>
+        /// Gets the attribute that initiated the interception
+        /// </summary>
+        /// <returns><see cref="MethodInterceptionAttribute"/></returns>
+        public MethodInterceptionAttribute GetOwningAttribute()
+        {
+            return this.Attribute;
+        }
+
+        /// <summary>
+        /// Gets the type that owns the executing method
+        /// </summary>
+        /// <returns><see cref="Type"/></returns>
+        public Type GetOwningType()
+        {
+            return this.Invocation.Method.DeclaringType;
         }
 
         /// <summary>
@@ -93,7 +118,7 @@
         {
             this.Invocation.SetArgumentValue(parameterPosition, newValue);
         }
-        
+
         /// <summary>
         /// Adds temporary data to the context
         /// </summary>
@@ -138,6 +163,69 @@
         public void BypassInvocation()
         {
             this.InvocationIsBypassed = true;
+        }
+
+        /// <summary>
+        /// Gets the Executing Method Info
+        /// </summary>
+        /// <returns>Returns the position of the type in the method parameters. Returns -1 if not found</returns>
+        public MethodInfo GetExecutingMethodInfo()
+        {
+            return this.Invocation.Method;
+        }
+
+        /// <summary>
+        /// Gets the Executing Method Name
+        /// </summary>
+        /// <returns>The Name of the executing method</returns>
+        public string GetExecutingMethodName()
+        {
+            return this.Invocation.Method.Name;
+        }
+
+        /// <summary>
+        /// Method to try and identify the position of the specified type in the methods parameter list
+        /// </summary>
+        /// <param name="typeToFind">Type To Find</param>
+        /// <returns>Returns the position of the type in the method parameters. Returns -1 if not found</returns>
+        public int GetParameterPosition(Type typeToFind)
+        {
+            var method = this.Invocation.Method;
+            if (method == null)
+            {
+                throw new ArgumentNullException(nameof(method));
+            }
+
+            for (var i = method.GetParameters().Length - 1; i >= 0; i--)
+            {
+                var paramType = method.GetParameters()[i].ParameterType;
+                if (paramType != typeToFind)
+                {
+                    continue;
+                }
+
+                return i;
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Gets the position of the specified type in the methods parameter list
+        /// </summary>
+        /// <typeparam name="TTypeToFind">Type to find</typeparam>
+        /// <returns>Returns the position of the type in the method parameters. Returns -1 if not found</returns>
+        public int GetParameterPosition<TTypeToFind>()
+        {
+            return this.GetParameterPosition(typeof(TTypeToFind));
+        }
+
+        /// <summary>
+        /// Gets the specified attribute from the executing method
+        /// </summary>
+        public TAttribute GetAttributeFromMethod<TAttribute>() where TAttribute : Attribute
+        {
+            return this.Invocation.MethodInvocationTarget.GetCustomAttributes().OfType<TAttribute>().FirstOrDefault();
         }
     }
 }
