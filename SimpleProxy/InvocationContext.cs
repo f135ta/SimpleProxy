@@ -89,7 +89,7 @@
         }
 
         /// <summary>
-        /// Method to try and identify the position of the specified type in the methods parameter list
+        /// Gets the position of the specified type in the methods parameter list
         /// </summary>
         /// <typeparam name="T">Type of value to get</typeparam>
         /// <param name="parameterPosition">Parameter Position</param>
@@ -100,7 +100,7 @@
         }
 
         /// <summary>
-        /// Method to try and identify the position of the specified type in the methods parameter list
+        /// Gets the position of the specified type in the methods parameter list
         /// </summary>
         /// <param name="parameterPosition">Parameter Position</param>
         /// <returns>Returns the value of the Parameter at the given position</returns>
@@ -149,7 +149,7 @@
         }
 
         /// <summary>
-        /// Overrides the return value for the method being called
+        /// Overrides the return value for the method being called. Usually called with [BypassInvocation] to shortcut interception
         /// </summary>
         /// <returns>Method Return Value</returns>
         public void OverrideMethodReturnValue(object returnValue)
