@@ -40,9 +40,4 @@
             return dateTime;
         }
     }
-
-    public interface ITestClass
-    {
-        DateTime TestMethod();
-    }
 }
