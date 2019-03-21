@@ -74,5 +74,15 @@
         {
             return context.Invocation.MethodInvocationTarget.GetCustomAttributes().OfType<TAttribute>().FirstOrDefault();
         }
+
+        /// <summary>
+        /// Gets the <see cref="Type"/> for the class that owns the executing method
+        /// </summary>
+        /// <param name="context">Invocation Context</param>
+        /// <returns><see cref="Type"/></returns>
+        public static Type GetOwningType(this InvocationContext context)
+        {
+            return context.GetExecutingMethodInfo().DeclaringType;
+        }
     }
 }

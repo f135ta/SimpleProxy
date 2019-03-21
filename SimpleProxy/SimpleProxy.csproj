@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Description>Simple Proxy is a simple extension library built to solve the problem of Aspect Orientated Programming in Net Core projects</Description>
+    <Copyright>Robert Perry</Copyright>
+    <RepositoryUrl>https://github.com/f135ta/SimpleProxy</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

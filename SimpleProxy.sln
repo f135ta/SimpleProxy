@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28705.295
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy", "SimpleProxy\SimpleProxy.csproj", "{076C09AD-12A5-4CE0-BE41-B461606FED62}"
 EndProject
@@ -12,6 +12,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy.Diagnostics", "SimpleProxy.Diagnostics\SimpleProxy.Diagnostics.csproj", "{D513380A-89DF-4074-B6C9-EA146AE7D8B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy.Logging", "SimpleProxy.Logging\SimpleProxy.Logging.csproj", "{65B0C87F-FA32-4EC3-8D67-15D1746924E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy.UnitOfWork", "SimpleProxy.UnitOfWork\SimpleProxy.UnitOfWork.csproj", "{8E20AC91-9FBA-4975-90EE-46078318F4C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleProxy.Tests", "Unit Tests\SimpleProxy.Tests\SimpleProxy.Tests.csproj", "{4463FE87-A9DE-4076-B942-595C0B107924}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{8E20A6AB-AC37-43E6-89F9-BF21FEB70339}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interceptors", "Interceptors", "{08F8CC95-6646-4F02-8A2C-C7884CA0DBD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4A4DE7A9-6C40-4F7F-9E49-0090BAA9B1E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +49,25 @@ Global
 		{65B0C87F-FA32-4EC3-8D67-15D1746924E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65B0C87F-FA32-4EC3-8D67-15D1746924E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65B0C87F-FA32-4EC3-8D67-15D1746924E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E20AC91-9FBA-4975-90EE-46078318F4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E20AC91-9FBA-4975-90EE-46078318F4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E20AC91-9FBA-4975-90EE-46078318F4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E20AC91-9FBA-4975-90EE-46078318F4C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4463FE87-A9DE-4076-B942-595C0B107924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4463FE87-A9DE-4076-B942-595C0B107924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4463FE87-A9DE-4076-B942-595C0B107924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4463FE87-A9DE-4076-B942-595C0B107924}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{076C09AD-12A5-4CE0-BE41-B461606FED62} = {4A4DE7A9-6C40-4F7F-9E49-0090BAA9B1E1}
+		{3B583E8E-6FB9-40E6-A294-35A26F9A9430} = {08F8CC95-6646-4F02-8A2C-C7884CA0DBD0}
+		{D513380A-89DF-4074-B6C9-EA146AE7D8B5} = {08F8CC95-6646-4F02-8A2C-C7884CA0DBD0}
+		{65B0C87F-FA32-4EC3-8D67-15D1746924E2} = {08F8CC95-6646-4F02-8A2C-C7884CA0DBD0}
+		{8E20AC91-9FBA-4975-90EE-46078318F4C8} = {08F8CC95-6646-4F02-8A2C-C7884CA0DBD0}
+		{4463FE87-A9DE-4076-B942-595C0B107924} = {8E20A6AB-AC37-43E6-89F9-BF21FEB70339}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F627740-E1C8-4756-8BA6-39E4135E9350}

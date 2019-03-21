@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics;
     using Interfaces;
+    using Microsoft.Extensions.Logging;
     using SimpleProxy;
 
     /// <summary>
@@ -13,11 +14,17 @@
         private readonly Stopwatch diagnosticStopwatch;
 
         /// <summary>
+        /// The Logger
+        /// </summary>
+        private ILogger logger;
+
+        /// <summary>
         /// Initialises a new instance of the <see cref="DiagnosticsInterceptor"/>
         /// </summary>
-        public DiagnosticsInterceptor()
+        public DiagnosticsInterceptor(ILoggerFactory loggerFactory)
         {
             this.diagnosticStopwatch = new Stopwatch();
+            this.logger = loggerFactory.CreateLogger<DiagnosticsInterceptor>();
         }
 
         /// <inheritdoc />
@@ -30,7 +37,7 @@
         public void AfterInvoke(InvocationContext invocationContext, object methodResult)
         {
             this.diagnosticStopwatch.Stop();
-            Console.WriteLine($"Diagnostics Log: Method executed in: {this.diagnosticStopwatch.ElapsedMilliseconds}ms");
+            this.logger.LogInformation($"Method executed in: {this.diagnosticStopwatch.ElapsedMilliseconds}ms");
         }
     }
 }
