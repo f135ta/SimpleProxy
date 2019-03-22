@@ -17,10 +17,17 @@ Source: https://en.wikipedia.org/wiki/Aspect-oriented_programming
 
 ## Getting Started
 
+##### Option 1 => Source Code
 - Download the code from GitHub, either by cloning the repository or downloading the files directly.
 - Open the [SimpleProxy.sln] file in Visual Studio
 - Build the solution
 - Start the [SampleApp] project to see it in action
+
+##### Option 2 => Binary
+Visit https://www.nuget.org/packages/SimpleProxy/1.0.1 and download the latest binary
+
+##### Option 3 => Nuget
+Install directly into your project using: ```Install-Package SimpleProxy -Version 1.0.1``` in your Nuget Package Manager
 
 #### What do I need to run the code?
 
