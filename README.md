@@ -1,4 +1,4 @@
-<img src="https://mydrivestore.blob.core.windows.net/logos/simpleProxy.png" alt="SimpleProxy">
+<img src="https://mydrivestore.blob.core.windows.net/logos/ProxyLogo.png" alt="SimpleProxy">
 
 ## What is SimpleProxy?
 
