@@ -41,14 +41,62 @@ Creating proxies for objects is **not** straightforward. One of the most common 
 SimpleProxy is designed to simplify the whole process. Interception is done in just a few steps:
 
 - Create a custom attribute that derives from the SimpleProxy base attribute
+
+```
+public class MyCustomAttribute : MethodInterceptionAttribute
+{
+    public MyCustomAttribute()
+    {
+    }
+}
+```
+
 - Create an interceptor that derives from the SimpleProxy IMethodInterceptor
+
+```
+public class MyCustomInterceptor : IMethodInterceptor
+{
+    public void BeforeInvoke(InvocationContext invocationContext)
+    {
+    }
+
+    public void AfterInvoke(InvocationContext invocationContext, object methodResult)
+    {
+    }
+}
+```
+    
 - Register a mapping for the Attribute & Interceptors in the ServiceCollection
+
+```
+    // Configure the Service Provider
+    var services = new ServiceCollection();
+
+    // Enable SimpleProxy
+    services.EnableSimpleProxy(p => p.AddInterceptor<MyCustomAttribute, MyCustomInterceptor>());
+``` 
+
 - Add your class to the ServiceCollection using one of the SimpleProxy IServiceCollection overloads
+
+```
+    services.AddTransientWithProxy<ITestClass, TestClass>();
+```    
 
 SimpleProxy uses the default Microsoft.Extensions.DependencyInjection library built into ASP Net Core to register interceptors and then intercept method calls based on the attributes applied to your methods. Methods are intercepted with YOUR own code either before and/or after a method call.
 
 #### How do I register interceptors with the DI Framework?
-...
+
+Interceptors are registered in the Microsoft DI framework using the EnableSimpleProxy extension method on IServiceCollection. The ```AddInterceptor<T,T2>()``` method uses the fluent interface so it can be chained for easier configuration.
+
+```
+    // Configure the Service Provider
+    var services = new ServiceCollection();
+
+    // Enable SimpleProxy
+    services.EnableSimpleProxy(p => p
+            .AddInterceptor<MyCustomAttribute, MyCustomInterceptor>()
+            .AddInterceptor<MyCustomAttribute2, MyCustomInterceptor2>());
+```
 
 #### What is InvocationContext?
 ...
