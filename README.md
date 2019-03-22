@@ -38,9 +38,12 @@ Install directly into your project using: ```Install-Package SimpleProxy -Versio
 
 Creating proxies for objects is **not** straightforward. One of the most common frameworks for doing so is (and has been for a long time) Castle Core. (https://github.com/castleproject/Core). Infact, Castle Core is used as a fundamental building block for this project. Documentation can be difficult to find for Castle Core and its not straightforward to work with on its own.
 
-SimpleProxy is designed to simplify the whole process. Interception is a two part process. 
-- You decorate methods with your own custom attributes. 
-- Your attributes derive from a base attribute. 
+SimpleProxy is designed to simplify the whole process. Interception is done in just a few steps:
+
+- Create a custom attribute that derives from the SimpleProxy base attribute
+- Create an interceptor that derives from the SimpleProxy IMethodInterceptor
+- Register a mapping for the Attribute & Interceptors in the ServiceCollection
+- Add your class to the ServiceCollection using one of the SimpleProxy IServiceCollection overloads
 
 SimpleProxy uses the default Microsoft.Extensions.DependencyInjection library built into ASP Net Core to register interceptors and then intercept method calls based on the attributes applied to your methods. Methods are intercepted with YOUR own code either before and/or after a method call.
 
@@ -50,7 +53,7 @@ SimpleProxy uses the default Microsoft.Extensions.DependencyInjection library bu
 #### What is InvocationContext?
 ...
 
-#### How do intercept my method calls?
+#### How do I intercept my method calls?
 ...
 
 #### Can I change the method values?
