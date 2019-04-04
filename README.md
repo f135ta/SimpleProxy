@@ -2,7 +2,7 @@
 
 ## What is SimpleProxy?
 
-SimpleProxy solves the problem of Aspect Orientated Programming (AoP) in Net Core.
+SimpleProxy solves the problem of Aspect Orientated Programming (AoP) in Net Core. It builds on the current Net Core Dependency Injection functions to extend it, providing Proxy services with a very small learning curve.
 
 ## What is Aspect Orientated Programming?
 
@@ -51,7 +51,7 @@ public class MyCustomAttribute : MethodInterceptionAttribute
 }
 ```
 
-- Create an interceptor that derives from the SimpleProxy IMethodInterceptor
+- Create an interceptor that implements the SimpleProxy IMethodInterceptor
 
 ```
 public class MyCustomInterceptor : IMethodInterceptor
