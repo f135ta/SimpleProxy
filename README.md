@@ -13,7 +13,7 @@ Wikipedia describes AOP as the following:
 Source: https://en.wikipedia.org/wiki/Aspect-oriented_programming
 
 ## SimpleProxy vs PostSharp
-...
+PostSharp is a long established and mature solution for doing what SimpleProxy does. It allows you to add additional functionality to your classes without spoiling them with repetitive boilerplater code. The fundamental difference is that PostSharp injects its code AFTER compilation, changing the the binaries that are output with additional code. SimpleProxy will wrap your code at runtime, so debugging is easy, and the changes more transparent to a developer. In short, SimpleProxy makes things more obvious.
 
 ## Getting Started
 
