@@ -1,4 +1,8 @@
-﻿namespace SimpleProxy.Internal
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using SimpleProxy.Interfaces;
+
+namespace SimpleProxy.Internal
 {
     using System;
     using System.Linq;
@@ -9,7 +13,7 @@
     /// <summary>
     /// The Master Interceptor Class wraps a proxied object and handles all of its interceptions
     /// </summary>
-    internal class CoreInterceptor : IInterceptor
+    internal class CoreInterceptor : IAsyncInterceptor
     {
         /// <summary>
         /// Gets the <see cref="proxyConfiguration"/>
@@ -32,26 +36,14 @@
             this.proxyConfiguration = proxyConfiguration;
         }
 
-        /// <inheritdoc />
-        public void Intercept(IInvocation invocation)
+        public void InterceptSynchronous(IInvocation invocation)
         {
-            // Map the configured interceptors to this type based on its attributes
-            var invocationMetadataCollection = InvocationExtensions.GetInterceptorMetadataForMethod(invocation, this.serviceProvider, this.proxyConfiguration);
+            var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
 
-            // If there are no configured interceptors, leave now
-            if (invocationMetadataCollection == null || !invocationMetadataCollection.Any())
+            if (!proceedWithInterception)
             {
                 invocation.Proceed();
                 return;
-            }
-
-            // Get the Ordering Strategy for Interceptors
-            var orderingStrategy = this.proxyConfiguration.OrderingStrategy;
-
-            // Process the BEFORE Interceptions
-            foreach (var invocationContext in orderingStrategy.OrderBeforeInterception(invocationMetadataCollection))
-            {
-                invocationContext.Interceptor.BeforeInvoke(invocationContext);
             }
 
             // Execute the Real Method
@@ -60,6 +52,100 @@
                 invocation.Proceed();
             }
 
+            InterceptAfterProceed(invocationMetadataCollection, orderingStrategy);
+        }
+
+        public void InterceptAsynchronous(IInvocation invocation)
+        {
+            invocation.ReturnValue = InternalInterceptAsynchronous(invocation);
+        }
+
+        private async Task InternalInterceptAsynchronous(IInvocation invocation)
+        {
+            var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
+
+            if (!proceedWithInterception)
+            {
+                invocation.Proceed();
+                var task = (Task)invocation.ReturnValue;
+                await task;
+                return;
+            }
+
+            // Execute the Real Method
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
+                invocation.Proceed();
+                var task = (Task)invocation.ReturnValue;
+                await task;
+            }
+
+            InterceptAfterProceed(invocationMetadataCollection, orderingStrategy);
+        }
+
+        public void InterceptAsynchronous<TResult>(IInvocation invocation)
+        {
+            invocation.ReturnValue = InternalInterceptAsynchronous<TResult>(invocation);
+        }
+
+        private async Task<TResult> InternalInterceptAsynchronous<TResult>(IInvocation invocation)
+        {
+            var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
+
+            TResult result;
+
+            if (!proceedWithInterception)
+            {
+                invocation.Proceed();
+                var task = (Task<TResult>)invocation.ReturnValue;
+                result = await task;
+                return result;
+            }
+
+            // Execute the Real Method
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
+                invocation.Proceed();
+                var task = (Task<TResult>)invocation.ReturnValue;
+                result = await task;
+            }
+            else
+            {
+                result = default;
+            }
+
+            InterceptAfterProceed(invocationMetadataCollection, orderingStrategy);
+
+            return result;
+        }
+
+
+        private bool InterceptBeforeProceed(IInvocation invocation, out List<InvocationContext> invocationMetadataCollection, out IOrderingStrategy orderingStrategy)
+        {
+            // Map the configured interceptors to this type based on its attributes
+            invocationMetadataCollection = InvocationExtensions.GetInterceptorMetadataForMethod(invocation, this.serviceProvider, this.proxyConfiguration);
+
+            // If there are no configured interceptors, leave now
+            if (invocationMetadataCollection == null || !invocationMetadataCollection.Any())
+            {
+                orderingStrategy = null;
+                return false;
+            }
+
+            // Get the Ordering Strategy for Interceptors
+            orderingStrategy = this.proxyConfiguration.OrderingStrategy;
+
+            // Process the BEFORE Interceptions
+            foreach (var invocationContext in orderingStrategy.OrderBeforeInterception(invocationMetadataCollection))
+            {
+                invocationContext.Interceptor.BeforeInvoke(invocationContext);
+            }
+
+            return true;
+        }
+
+        private static void InterceptAfterProceed(List<InvocationContext> invocationMetadataCollection, IOrderingStrategy orderingStrategy)
+        {
             // Process the AFTER Interceptions
             foreach (var invocationContext in orderingStrategy.OrderAfterInterception(invocationMetadataCollection))
             {
