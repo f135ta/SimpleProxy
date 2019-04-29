@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Simple Proxy is a simple extension library built to solve the problem of Aspect Orientated Programming in Net Core projects</Description>
     <Copyright>Robert Perry</Copyright>
     <RepositoryUrl>https://github.com/f135ta/SimpleProxy</RepositoryUrl>
@@ -9,15 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.3.1" />
+    <PackageReference Include="Castle.Core.AsyncInterceptor" Version="1.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Runtime">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.2.0\ref\netcoreapp2.2\System.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
