@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using SimpleProxy.Interfaces;
-
+﻿
 
 namespace SimpleProxy.Internal
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Castle.DynamicProxy;
     using Extensions;
     using SimpleProxy.Configuration;
+    using SimpleProxy.Interfaces;
 
     /// <summary>
     /// The Master Interceptor Class wraps a proxied object and handles all of its interceptions
