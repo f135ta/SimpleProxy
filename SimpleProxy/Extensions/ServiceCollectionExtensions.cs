@@ -94,7 +94,7 @@
 
             // Wrap the service with a Proxy instance and add it with Singleton Scope
             services.AddSingleton(typeof(TInterface), p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration).CreateProxy(proxyInstance));
-            
+
             // Return the IServiceCollection for chaining configuration
             return services;
         }
