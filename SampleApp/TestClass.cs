@@ -1,4 +1,7 @@
-﻿namespace SampleApp
+﻿using System.Threading.Tasks;
+
+
+namespace SampleApp
 {
     using System;
     using Microsoft.Extensions.Logging;
@@ -35,9 +38,23 @@
         {
             var dateTime = DateTime.Now;
 
-            this.logger.LogInformation($"====> The Real Method is Executed Here! <====");
+            this.logger.LogInformation("====> The Real Method is Executed Here! <====");
 
             return dateTime;
         }
+
+        [Log(LogLevel.Debug)]
+        [Diagnostics]
+        [Cache]
+        public Task<DateTime> TestMethodAsync()
+        {
+            var dateTime = DateTime.Now;
+
+            this.logger.LogInformation("====> The Real Async Method is Executed Here! <====");
+
+            return Task.FromResult(dateTime);
+        }
+
     }
+
 }

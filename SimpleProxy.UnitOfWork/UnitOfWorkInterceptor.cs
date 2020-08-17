@@ -1,4 +1,7 @@
-﻿namespace SimpleProxy.UnitOfWork
+﻿using Arch.EntityFrameworkCore.UnitOfWork;
+
+
+namespace SimpleProxy.UnitOfWork
 {
     using System.Linq;
     using Extensions;
