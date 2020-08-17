@@ -4,6 +4,7 @@
     using Interfaces;
     using Microsoft.Extensions.Caching.Memory;
     using SimpleProxy;
+    using System;
 
     /// <summary>
     /// Interceptor for Caching Method return values
@@ -41,8 +42,17 @@
         /// <inheritdoc />
         public void AfterInvoke(InvocationContext invocationContext, object methodResult)
         {
-            // Save the result to the MemoryCache
-            this.memoryCache.Set(invocationContext.GetExecutingMethodName(), methodResult);
+            // Save the result to the MemoryCahe with an expiration time if availble
+            if (invocationContext.GetAttributeFromMethod<CacheAttribute>() != null
+                && invocationContext.GetAttributeFromMethod<CacheAttribute>().MillisecondsToExpire > 0)
+            {
+                this.memoryCache.Set(invocationContext.GetExecutingMethodName(), methodResult, TimeSpan.FromMilliseconds(invocationContext.GetAttributeFromMethod<CacheAttribute>().MillisecondsToExpire));
+            }
+            else
+            {
+                // Save the result to the MemoryCache without any expiration time
+                this.memoryCache.Set(invocationContext.GetExecutingMethodName(), methodResult);
+            }
         }
     }
 }

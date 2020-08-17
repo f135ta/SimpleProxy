@@ -35,6 +35,11 @@
             var testProxy = serviceProvider.GetService<ITestClass>();
             testProxy.TestMethod();
 
+            testProxy.TestMethodWithExpirationPolicy(); // set the cache
+            testProxy.TestMethodWithExpirationPolicy(); // execute just using the cache value
+            System.Threading.Thread.Sleep(25000); // time to expire the registry
+            testProxy.TestMethodWithExpirationPolicy(); // execute the method again
+
             Console.ReadLine();
         }
     }
