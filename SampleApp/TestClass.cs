@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-
-
 namespace SampleApp
 {
     using System;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
     using SimpleProxy.Caching;
     using SimpleProxy.Diagnostics;
@@ -43,6 +41,21 @@ namespace SampleApp
             return dateTime;
         }
 
+        /// <summary>
+        /// Test Method With Expire Policy
+        /// </summary>
+        [Log(LogLevel.Debug)]
+        [Diagnostics]
+        [Cache(MillisecondsToExpire = 20000)]
+        public DateTime TestMethodWithExpirationPolicy()
+        {
+            var dateTime = DateTime.Now;
+
+            this.logger.LogInformation($"====> The Real Method With Expiration is Executed Here! <====");
+
+            return dateTime;
+        }
+
         [Log(LogLevel.Debug)]
         [Diagnostics]
         [Cache]
@@ -54,7 +67,6 @@ namespace SampleApp
 
             return Task.FromResult(dateTime);
         }
-
     }
 
 }

@@ -1,5 +1,3 @@
-﻿
-
 namespace SampleApp {
     using System;
     using System.Threading.Tasks;
@@ -41,6 +39,11 @@ namespace SampleApp {
             testProxy.TestMethod();
 
             await testProxy.TestMethodAsync();
+
+            testProxy.TestMethodWithExpirationPolicy(); // set the cache
+            testProxy.TestMethodWithExpirationPolicy(); // execute just using the cache value
+            System.Threading.Thread.Sleep(25000); // time to expire the registry
+            testProxy.TestMethodWithExpirationPolicy(); // execute the method again
 
             Console.WriteLine("====> All Test Methods Complete.  Press a key. <====");
 
