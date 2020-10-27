@@ -51,7 +51,9 @@
             var proxyInstance = ActivatorUtilities.CreateInstance<TService>(serviceProvider);
 
             // Wrap the service with a Proxy instance and add it with Transient Scope
-            services.AddTransient(typeof(TInterface), p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration).CreateProxy(proxyInstance));
+            services.AddTransient(typeof(TInterface),
+                p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration)
+                .CreateProxy(ActivatorUtilities.CreateInstance<TService>(serviceProvider)));
 
             // Return the IServiceCollection for chaining configuration
             return services;
