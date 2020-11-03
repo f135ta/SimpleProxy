@@ -5,7 +5,7 @@
     <Description>Simple Proxy is a simple extension library built to solve the problem of Aspect Orientated Programming in Net Core projects.</Description>
     <Copyright>Robert Perry</Copyright>
     <RepositoryUrl>https://github.com/f135ta/SimpleProxy</RepositoryUrl>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>SimpleProxyCp</PackageId>
     <Authors>SimpleProxyCp</Authors>
@@ -17,9 +17,9 @@
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.1" />
     <PackageReference Include="Castle.Core.AsyncInterceptor" Version="1.7.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
