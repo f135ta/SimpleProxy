@@ -53,7 +53,7 @@
             // Wrap the service with a Proxy instance and add it with Transient Scope
             services.AddTransient(typeof(TInterface),
                 p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration)
-                .CreateProxy(ActivatorUtilities.CreateInstance<TService>(serviceProvider)));
+                .CreateInterfaceProxy(ActivatorUtilities.CreateInstance<TService>(serviceProvider)));
 
             // Return the IServiceCollection for chaining configuration
             return services;
@@ -75,7 +75,7 @@
             // Wrap the service with a Proxy instance and add it with Transient Scope
             services.AddTransient(typeof(TService),
                 p => new ProxyFactory<TService>(serviceProvider, proxyGenerator, proxyConfiguration)
-                .CreateProxy(ActivatorUtilities.CreateInstance<TService>(serviceProvider)));
+                .CreateClassProxy(ActivatorUtilities.CreateInstance<TService>(serviceProvider)));
 
             // Return the IServiceCollection for chaining configuration
             return services;
@@ -96,7 +96,7 @@
             var proxyInstance = ActivatorUtilities.CreateInstance<TService>(serviceProvider);
 
             // Wrap the service with a Proxy instance and add it with Scoped Scope
-            services.AddScoped(typeof(TInterface), p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration).CreateProxy(proxyInstance));
+            services.AddScoped(typeof(TInterface), p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration).CreateInterfaceProxy(proxyInstance));
 
             // Return the IServiceCollection for chaining configuration
             return services;
@@ -116,7 +116,7 @@
             var proxyInstance = ActivatorUtilities.CreateInstance<TService>(serviceProvider);
 
             // Wrap the service with a Proxy instance and add it with Scoped Scope
-            services.AddScoped(typeof(TService), p => new ProxyFactory<TService>(serviceProvider, proxyGenerator, proxyConfiguration).CreateProxy(proxyInstance));
+            services.AddScoped(typeof(TService), p => new ProxyFactory<TService>(serviceProvider, proxyGenerator, proxyConfiguration).CreateClassProxy(proxyInstance));
 
             // Return the IServiceCollection for chaining configuration
             return services;
@@ -137,7 +137,7 @@
             var proxyInstance = ActivatorUtilities.CreateInstance<TService>(serviceProvider);
 
             // Wrap the service with a Proxy instance and add it with Singleton Scope
-            services.AddSingleton(typeof(TInterface), p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration).CreateProxy(proxyInstance));
+            services.AddSingleton(typeof(TInterface), p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration).CreateInterfaceProxy(proxyInstance));
 
             // Return the IServiceCollection for chaining configuration
             return services;
@@ -157,7 +157,7 @@
             var proxyInstance = ActivatorUtilities.CreateInstance<TService>(serviceProvider);
 
             // Wrap the service with a Proxy instance and add it with Singleton Scope
-            services.AddSingleton(typeof(TService), p => new ProxyFactory<TService>(serviceProvider, proxyGenerator, proxyConfiguration).CreateProxy(proxyInstance));
+            services.AddSingleton(typeof(TService), p => new ProxyFactory<TService>(serviceProvider, proxyGenerator, proxyConfiguration).CreateClassProxy(proxyInstance));
 
             // Return the IServiceCollection for chaining configuration
             return services;

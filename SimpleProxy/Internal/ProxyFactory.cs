@@ -43,11 +43,32 @@
         /// </summary>
         /// <param name="originalObject">The Object to be Proxied</param>
         /// <returns>The Proxied Object</returns>
-        public T CreateProxy(T originalObject)
+        public T CreateInterfaceProxy(T originalObject)
         {
             // Proxy the Original Object
             var masterInterceptor = new CoreInterceptor(this.serviceProvider, this.proxyConfiguration);
             var proxy = this.proxyGenerator.CreateInterfaceProxyWithTarget(typeof(T), originalObject, masterInterceptor);
+
+            // Make sure the Proxy was created correctly
+            if (proxy == null)
+            {
+                throw new ArgumentNullException(nameof(proxy));
+            }
+
+            // Return the Proxied Object
+            return (T)proxy;
+        }
+
+        /// <summary>
+        /// Creates a Proxy Object of the object passed in
+        /// </summary>
+        /// <param name="originalObject">The Object to be Proxied</param>
+        /// <returns>The Proxied Object</returns>
+        public T CreateClassProxy(T originalObject)
+        {
+            // Proxy the Original Object
+            var masterInterceptor = new CoreInterceptor(this.serviceProvider, this.proxyConfiguration);
+            var proxy = this.proxyGenerator.CreateClassProxyWithTarget(typeof(T), originalObject, masterInterceptor);
 
             // Make sure the Proxy was created correctly
             if (proxy == null)
