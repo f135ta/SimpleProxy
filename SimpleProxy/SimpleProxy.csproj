@@ -5,7 +5,7 @@
     <Description>Simple Proxy is a simple extension library built to solve the problem of Aspect Orientated Programming in Net Core projects.</Description>
     <Copyright>Robert Perry</Copyright>
     <RepositoryUrl>https://github.com/f135ta/SimpleProxy</RepositoryUrl>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>SimpleProxyCp</PackageId>
     <Authors>SimpleProxyCp</Authors>
