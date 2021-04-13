@@ -12,7 +12,6 @@
 		<RootNamespace>Castle</RootNamespace>
 		<AssemblyTitle>Castle Core</AssemblyTitle>
 		<Description>Castle Core, including DynamicProxy(with limited logging), Logging Abstractions and DictionaryAdapter</Description>
-		<AssemblyOriginatorKeyFile>..\..\buildscripts\CastleKey.snk</AssemblyOriginatorKeyFile>
 		<SignAssembly>false</SignAssembly>
 		<PublicSign Condition="'$(OS)'=='Unix'">true</PublicSign>
 		<PackageTags>castle dynamicproxy dynamic proxy dynamicproxy2 dictionaryadapter emailsender</PackageTags>
@@ -20,26 +19,6 @@
 		<AssemblyVersion>4.4.1.1</AssemblyVersion>
 		<FileVersion>4.4.1.1</FileVersion>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="DynamicProxy\DynProxy.snk" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="DynamicProxy\DynProxy.snk" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)'=='net45'">
-		<Reference Include="System.Configuration" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-		<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0' OR '$(TargetFramework)'=='netstandard2.1'">
-		<PackageReference Include="System.Diagnostics.EventLog" Version="4.7.0" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Properties\" />

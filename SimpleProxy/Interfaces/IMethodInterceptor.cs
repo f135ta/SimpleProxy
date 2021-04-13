@@ -1,4 +1,6 @@
-﻿namespace SimpleProxy.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace SimpleProxy.Interfaces
 {
     /// <summary>
     /// Defines a mapping between an interceptor and the attribute the interceptor responds to.
@@ -8,7 +10,7 @@
         /// <summary>
         /// Method that is invoked instead of the method to which the interceptor has been applied
         /// </summary>
-        void BeforeInvoke(InvocationContext invocationContext);
+        Task<bool> BeforeInvoke(InvocationContext invocationContext);
 
         /// <summary>
         /// Method that is invoked instead of the method to which the interceptor has been applied
