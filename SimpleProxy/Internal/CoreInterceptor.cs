@@ -39,19 +39,21 @@ namespace SimpleProxy.Internal
 
         public void InterceptSynchronous(IInvocation invocation)
         {
-            var proceedWithInterception = InterceptBeforeProceed(invocation).Result;
+            var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
 
-            if (!proceedWithInterception.DontProceed) {
+            if (!proceedWithInterception)
+            {
                 invocation.Proceed();
                 return;
             }
 
             // Execute the Real Method
-            if (!proceedWithInterception.InvocationContexts.Any(p => p.InvocationIsBypassed)) {
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
                 invocation.Proceed();
             }
 
-            InterceptAfterProceed(proceedWithInterception.InvocationContexts, proceedWithInterception.OrderingStrategy);
+            InterceptAfterProceed(invocationMetadataCollection, orderingStrategy);
         }
 
         public void InterceptAsynchronous(IInvocation invocation)
@@ -61,9 +63,10 @@ namespace SimpleProxy.Internal
 
         private async Task InternalInterceptAsynchronousAsync(IInvocation invocation)
         {
-            var proceedWithInterception = await InterceptBeforeProceed(invocation);
+            var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
 
-            if (!proceedWithInterception.DontProceed) {
+            if (!proceedWithInterception)
+            {
                 invocation.Proceed();
                 var task = (Task)invocation.ReturnValue;
                 await task;
@@ -71,13 +74,14 @@ namespace SimpleProxy.Internal
             }
 
             // Execute the Real Method
-            if (!proceedWithInterception.InvocationContexts.Any(p => p.InvocationIsBypassed)) {
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
                 invocation.Proceed();
                 var task = (Task)invocation.ReturnValue;
                 await task;
             }
 
-            InterceptAfterProceed(proceedWithInterception.InvocationContexts, proceedWithInterception.OrderingStrategy);
+            InterceptAfterProceed(invocationMetadataCollection, orderingStrategy);
         }
 
         public void InterceptAsynchronous<TResult>(IInvocation invocation)
@@ -87,11 +91,12 @@ namespace SimpleProxy.Internal
 
         private async Task<TResult> InternalInterceptAsynchronousAsync<TResult>(IInvocation invocation)
         {
-            var proceedWithInterception = await InterceptBeforeProceed(invocation);
+            var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
 
             TResult result;
 
-            if (!proceedWithInterception.DontProceed) {
+            if (!proceedWithInterception)
+            {
                 invocation.Proceed();
                 var task = (Task<TResult>)invocation.ReturnValue;
                 result = await task;
@@ -99,78 +104,55 @@ namespace SimpleProxy.Internal
             }
 
             // Execute the Real Method
-            if (!proceedWithInterception.InvocationContexts.Any(p => p.InvocationIsBypassed)) {
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
                 invocation.Proceed();
                 var task = (Task<TResult>)invocation.ReturnValue;
                 result = await task;
             }
-            else {
+            else
+            {
                 result = default;
             }
 
-            InterceptAfterProceed(proceedWithInterception.InvocationContexts, proceedWithInterception.OrderingStrategy);
+            InterceptAfterProceed(invocationMetadataCollection, orderingStrategy);
 
             return result;
         }
 
-        private async Task<InterceptorData> InterceptBeforeProceed(IInvocation invocation)
+        private bool InterceptBeforeProceed(IInvocation invocation, out List<InvocationContext> invocationMetadataCollection, out IOrderingStrategy orderingStrategy)
         {
-            InterceptorData data = new InterceptorData();
-
             // Map the configured interceptors to this type based on its attributes
-            var invocationMetadataCollection = InvocationExtensions.GetInterceptorMetadataForMethod(invocation, this.serviceProvider, this.proxyConfiguration);
-            
+            invocationMetadataCollection = InvocationExtensions.GetInterceptorMetadataForMethod(invocation, this.serviceProvider, this.proxyConfiguration);
 
             // If there are no configured interceptors, leave now
-            if (invocationMetadataCollection == null || !invocationMetadataCollection.Any()) {
-                data.OrderingStrategy = null;
-                data.DontProceed = false;
+            if (invocationMetadataCollection == null || !invocationMetadataCollection.Any())
+            {
+                orderingStrategy = null;
+                return false;
             }
 
             // Get the Ordering Strategy for Interceptors
-            var orderingStrategy = this.proxyConfiguration.OrderingStrategy;
-            data.OrderingStrategy = orderingStrategy;
-
-            data.InvocationContexts = new List<InvocationContext>();
+            orderingStrategy = this.proxyConfiguration.OrderingStrategy;
 
             // Process the BEFORE Interceptions
             foreach (var invocationContext in orderingStrategy.OrderBeforeInterception(invocationMetadataCollection))
             {
-                
-                var dontProceed = await invocationContext.Interceptor.BeforeInvoke(invocationContext);
-                if (dontProceed)
-                {
-                    data.DontProceed = true;
-                    invocationContext.BypassInvocation();
-                    data.InvocationContexts.Add(invocationContext);
-                    return data;
-                }
-
-                // in case it is valid one, add it to our list
-                data.InvocationContexts.Add(invocationContext);
+                invocationContext.Interceptor.BeforeInvoke(invocationContext);
             }
 
-            
-            data.DontProceed = true;
-            return data;
+            return true;
         }
 
         private static void InterceptAfterProceed(List<InvocationContext> invocationMetadataCollection, IOrderingStrategy orderingStrategy)
         {
             // Process the AFTER Interceptions
-            foreach (var invocationContext in orderingStrategy.OrderAfterInterception(invocationMetadataCollection)) {
+            foreach (var invocationContext in orderingStrategy.OrderAfterInterception(invocationMetadataCollection))
+            {
                 invocationContext.Interceptor.AfterInvoke(invocationContext, invocationContext.GetMethodReturnValue());
             }
         }
 
-    }
-
-    internal class InterceptorData
-    {
-        public List<InvocationContext> InvocationContexts { get; set; }
-        public IOrderingStrategy OrderingStrategy { get; set; }
-
-        public bool DontProceed { get; set; }
     }
 
 }
