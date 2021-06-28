@@ -7,12 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleProxy", "SimpleProxy\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4A4DE7A9-6C40-4F7F-9E49-0090BAA9B1E1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CastleCore", "CastleCore", "{FC20E617-CC98-4E90-A382-8A417A8F4A4A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Castle.Core", "Castle.Core\Castle.Core.csproj", "{41621639-2171-41BE-A1E3-E27C77DE8C61}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Castle.Core.AsyncInterceptor", "Castle.Core.AsyncInterceptor\Castle.Core.AsyncInterceptor.csproj", "{75792845-FF7F-454B-B826-79DBB4D40B4C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,22 +17,12 @@ Global
 		{076C09AD-12A5-4CE0-BE41-B461606FED62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{076C09AD-12A5-4CE0-BE41-B461606FED62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{076C09AD-12A5-4CE0-BE41-B461606FED62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41621639-2171-41BE-A1E3-E27C77DE8C61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41621639-2171-41BE-A1E3-E27C77DE8C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41621639-2171-41BE-A1E3-E27C77DE8C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41621639-2171-41BE-A1E3-E27C77DE8C61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75792845-FF7F-454B-B826-79DBB4D40B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75792845-FF7F-454B-B826-79DBB4D40B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75792845-FF7F-454B-B826-79DBB4D40B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75792845-FF7F-454B-B826-79DBB4D40B4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{076C09AD-12A5-4CE0-BE41-B461606FED62} = {4A4DE7A9-6C40-4F7F-9E49-0090BAA9B1E1}
-		{41621639-2171-41BE-A1E3-E27C77DE8C61} = {FC20E617-CC98-4E90-A382-8A417A8F4A4A}
-		{75792845-FF7F-454B-B826-79DBB4D40B4C} = {FC20E617-CC98-4E90-A382-8A417A8F4A4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F627740-E1C8-4756-8BA6-39E4135E9350}
