@@ -41,13 +41,15 @@ namespace SimpleProxy.Internal
         {
             var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
 
-            if (!proceedWithInterception) {
+            if (!proceedWithInterception)
+            {
                 invocation.Proceed();
                 return;
             }
 
             // Execute the Real Method
-            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed)) {
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
                 invocation.Proceed();
             }
 
@@ -63,7 +65,8 @@ namespace SimpleProxy.Internal
         {
             var proceedWithInterception = InterceptBeforeProceed(invocation, out var invocationMetadataCollection, out var orderingStrategy);
 
-            if (!proceedWithInterception) {
+            if (!proceedWithInterception)
+            {
                 invocation.Proceed();
                 var task = (Task)invocation.ReturnValue;
                 await task;
@@ -71,7 +74,8 @@ namespace SimpleProxy.Internal
             }
 
             // Execute the Real Method
-            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed)) {
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
                 invocation.Proceed();
                 var task = (Task)invocation.ReturnValue;
                 await task;
@@ -91,7 +95,8 @@ namespace SimpleProxy.Internal
 
             TResult result;
 
-            if (!proceedWithInterception) {
+            if (!proceedWithInterception)
+            {
                 invocation.Proceed();
                 var task = (Task<TResult>)invocation.ReturnValue;
                 result = await task;
@@ -99,12 +104,14 @@ namespace SimpleProxy.Internal
             }
 
             // Execute the Real Method
-            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed)) {
+            if (!invocationMetadataCollection.Any(p => p.InvocationIsBypassed))
+            {
                 invocation.Proceed();
                 var task = (Task<TResult>)invocation.ReturnValue;
                 result = await task;
             }
-            else {
+            else
+            {
                 result = default;
             }
 
@@ -119,7 +126,8 @@ namespace SimpleProxy.Internal
             invocationMetadataCollection = InvocationExtensions.GetInterceptorMetadataForMethod(invocation, this.serviceProvider, this.proxyConfiguration);
 
             // If there are no configured interceptors, leave now
-            if (invocationMetadataCollection == null || !invocationMetadataCollection.Any()) {
+            if (invocationMetadataCollection == null || !invocationMetadataCollection.Any())
+            {
                 orderingStrategy = null;
                 return false;
             }
@@ -128,7 +136,8 @@ namespace SimpleProxy.Internal
             orderingStrategy = this.proxyConfiguration.OrderingStrategy;
 
             // Process the BEFORE Interceptions
-            foreach (var invocationContext in orderingStrategy.OrderBeforeInterception(invocationMetadataCollection)) {
+            foreach (var invocationContext in orderingStrategy.OrderBeforeInterception(invocationMetadataCollection))
+            {
                 invocationContext.Interceptor.BeforeInvoke(invocationContext);
             }
 
@@ -138,7 +147,8 @@ namespace SimpleProxy.Internal
         private static void InterceptAfterProceed(List<InvocationContext> invocationMetadataCollection, IOrderingStrategy orderingStrategy)
         {
             // Process the AFTER Interceptions
-            foreach (var invocationContext in orderingStrategy.OrderAfterInterception(invocationMetadataCollection)) {
+            foreach (var invocationContext in orderingStrategy.OrderAfterInterception(invocationMetadataCollection))
+            {
                 invocationContext.Interceptor.AfterInvoke(invocationContext, invocationContext.GetMethodReturnValue());
             }
         }

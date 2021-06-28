@@ -48,13 +48,17 @@
             var serviceProvider = services.BuildServiceProvider();
             var proxyConfiguration = services.GetProxyConfiguration();
             var proxyGenerator = serviceProvider.GetService<IProxyGenerator>();
-            var proxyInstance = ActivatorUtilities.CreateInstance<TService>(serviceProvider);
 
             // Wrap the service with a Proxy instance and add it with Transient Scope
             services.AddTransient(typeof(TInterface),
-                p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration)
-                .CreateProxy(ActivatorUtilities.CreateInstance<TService>(serviceProvider)));
-
+                p =>
+                {
+                    return new ProxyFactory<TInterface>(
+                        serviceProvider,
+                        proxyGenerator,
+                        proxyConfiguration)
+                    .CreateProxy(ActivatorUtilities.CreateInstance<TService>(services.BuildServiceProvider()));
+                });
             // Return the IServiceCollection for chaining configuration
             return services;
         }
@@ -68,13 +72,20 @@
         /// <returns><see cref="IServiceCollection"/></returns>
         public static IServiceCollection AddScopedWithProxy<TInterface, TService>(this IServiceCollection services) where TService : TInterface
         {
+
             var serviceProvider = services.BuildServiceProvider();
             var proxyConfiguration = services.GetProxyConfiguration();
             var proxyGenerator = serviceProvider.GetService<IProxyGenerator>();
-            var proxyInstance = ActivatorUtilities.CreateInstance<TService>(serviceProvider);
-
             // Wrap the service with a Proxy instance and add it with Scoped Scope
-            services.AddScoped(typeof(TInterface), p => new ProxyFactory<TInterface>(serviceProvider, proxyGenerator, proxyConfiguration).CreateProxy(proxyInstance));
+            services.AddScoped(typeof(TInterface),
+            p =>
+            {
+                return new ProxyFactory<TInterface>(
+                    serviceProvider,
+                    proxyGenerator,
+                    proxyConfiguration)
+                .CreateProxy(ActivatorUtilities.CreateInstance<TService>(services.BuildServiceProvider()));
+            });
 
             // Return the IServiceCollection for chaining configuration
             return services;

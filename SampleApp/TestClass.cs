@@ -12,19 +12,27 @@ namespace SampleApp
     /// </summary>
     public class TestClass : ITestClass
     {
+        private static int count = 0;
+
         /// <summary>
         /// The Logger
         /// </summary>
         private readonly ILogger logger;
 
+        private readonly ICommon common;
+
         /// <summary>
         /// Initialises a new instance of the <see cref="TestClass"/>
         /// </summary>
         /// <param name="loggerFactory">Logger Factory</param>
-        public TestClass(ILoggerFactory loggerFactory)
+        public TestClass(ILoggerFactory loggerFactory, ICommon common)
         {
             this.logger = loggerFactory.CreateLogger<TestClass>();
+            this.common = common;
+            this.Instance = $"Test Class Instnce: {++count}. -- Common:  {common.Instance} ";
         }
+
+        public string Instance { get; set; }
 
         /// <summary>
         /// Test Method
@@ -67,6 +75,32 @@ namespace SampleApp
 
             return Task.FromResult(dateTime);
         }
+    }
+
+    public class Common : ICommon
+    {
+        private static int count = 0;
+        public IDBMock mock;
+        public Common(IDBMock dBMock)
+        {
+            this.mock = dBMock;
+
+            Instance = $"Common Instance Id {++count} -- DBMOck Id:  {mock.Instance }";
+        }
+        public string Instance { get; set; }
+    }
+
+    public class DBMOck : IDBMock
+    {
+        private static int count = 0;
+
+        public DBMOck()
+        {
+            Instance = $"DB MOCK ID : {++count}";
+
+        }
+
+        public string Instance { get; set; }
     }
 
 }

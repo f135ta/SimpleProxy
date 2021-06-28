@@ -2,17 +2,30 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Description>Simple Proxy is a simple extension library built to solve the problem of Aspect Orientated Programming in Net Core projects</Description>
+    <Description>Simple Proxy is a simple extension library built to solve the problem of Aspect Orientated Programming in Net Core projects.</Description>
     <Copyright>Robert Perry</Copyright>
-    <RepositoryUrl>https://github.com/f135ta/SimpleProxy</RepositoryUrl>
+    
+    <Version>1.0.11</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>SimpleProxyCp</PackageId>
+    <Authors>SimpleProxyCp</Authors>
+    <Company>SimpleProxyCp</Company>
+    <Product>SimpleProxyCp</Product>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.4.0" />
-    <PackageReference Include="Castle.Core.AsyncInterceptor" Version="1.7.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.1" />
+    <PackageReference Include="Castle.Core" Version="4.4.1" />
+    <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.16" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\f135ta\SimpleProxy\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
